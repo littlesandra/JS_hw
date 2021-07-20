@@ -6,79 +6,235 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollToPlugin3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <link rel="stylesheet" href="./reset.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
-
-        body,
-        html {
-            width: 100%;
-            height: 100%;
-            background: #ddd;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 99px;
-            text-align: center;
+        .title {
+            text-decoration-line: underline;
         }
 
-        div {
+        .logo {
+            width: 150px;
+            margin-left: 50px;
+            margin-top: 30px;
+        }
+
+        .text_space {
+            margin-top: 30px;
+        }
+
+        /* body {
+            background: url(./Animal-Crossing_wallpaper_01-1024x576.jpeg) no-repeat;
+            background-size: cover;
+            position: fixed;
+        } */
+
+        ::placeholder {
+            color: whitesmoke;
+            border: white;
+        }
+
+        a {
+            color: white;
+            text-decoration-line: none;
+            cursor: pointer;
+        }
+
+        ul {
+            margin-top: 50px;
+            width: 100%;
+            overflow: hidden;
             position: absolute;
+        }
+
+        li {
+            position: relative;
+            list-style: none;
+            display: inline-block;
+            margin-left: 15px;
+            transition: all 1s ease;
+            -o-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -webkit-transition: all 1s ease;
+            opacity: 0.5;
+        }
+
+        li:hover {
+            top: 0px;
+            opacity: 1;
+            transform: translateY(-20%);
+        }
+
+        #msg {
+            width: 266px;
+            position: fixed;
+            z-index: 999;
+            top: 49%;
+            margin-top: -80px;
+            left: 50%;
+            margin-left: -133px;
+            background: rgb(255, 255, 255);
+            box-shadow: 5px 5px 8px #999;
+            font-size: 17px;
+            color: rgb(152, 181, 235);
+            border: 1px solid #757df1;
+            text-align: center;
+            line-height: 2rem;
+            display: inline-block;
+            padding-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        #msg_top {
+            background: #f8f8f8;
+            padding: 5px 15px 5px 20px;
+            text-align: left;
+        }
+
+        #msg_top span {
+            font-size: 22px;
+            float: right;
+            cursor: pointer;
+        }
+
+        #msg_cont {
+            padding: 15px 20px 20px;
+            /* text-align: left; */
+        }
+
+        #msg_clear {
+            display: inline-block;
+            color: #fff;
+            padding: 1px 15px;
+            background: rgb(152, 181, 235);
+            border-radius: 2px;
+            /* float: right; */
+            margin-right: 15px;
+            cursor: pointer;
         }
     </style>
 </head>
 
-<body>
-    <div class="scrollDist"></div>
-    <div class="main">
-        <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-            <mask id="m">
-                <g class="cloud1">
-                    <rect fill="#fff" width="100%" height="801" y="799" />
-                    <image xlink:href="https://assets.codepen.io/721952/cloud1Mask.jpg" width="1200" height="800" />
-                </g>
-            </mask>
+<body id="body" style=" background: url(./Animal-Crossing_wallpaper_01-1024x576.jpeg) no-repeat;
+background-size: cover;">
+    <container>
+        <img src="./visual_logo__sp.png" alt="" class="logo">
+        <center>
+            <a class="title" href="https://store.line.me/stickershop/product/5194/zh-Hant">點擊開始探索夢幻島</a>
+        </center>
+        <center>
+            <div class="text_space" id="show">
+                <input type="text" id="url" placeholder="加入動物森友會" value=""
+                    style="width: 250px; height: 30px; background-color:yellowgreen; border-radius: 25px; padding-left: 20px; border-color: whitesmoke;">
+                <button id="btn_request"
+                    onclick="javascript:document.body.style.background='url(aHpZ8uJh.jpeg) no-repeat'; javascript:document.body.style.backgroundSize='cover'; "
+                    style="width: 100px; height: 30px; background-color: rgb(48, 133, 133); color: whitesmoke;border-radius: 25px; border-color: whitesmoke;">開始交朋友</button>
+                <ul id="myList"></ul>
+            </div>
+        </center>
+        <!-- <img src="" alt=""> -->
+    </container>
 
-            <image class="sky" xlink:href="https://assets.codepen.io/721952/sky.jpg" width="1200" height="590" />
-            <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="1200"
-                height="800" />
-            <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="1200"
-                height="800" />
-            <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="1200" height="800" />
-            <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="1200"
-                height="800" />
-            <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="1200" height="800" />
-            <image class="cloud3" xlink:href="https://assets.codepen.io/721952/cloud3.png" width="1200" height="800" />
-            <text fill="#fff" x="350" y="200">EXPLORE</text>
-            <polyline class="arrow" fill="#fff"
-                points="599,250 599,289 590,279 590,282 600,292 610,282 610,279 601,289 601,250" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-            <g mask="url(#m)">
-                <rect fill="#fff" width="100%" height="100%" />
-                <text x="350" y="200" fill="#162a43">FURTHER</text>
-            </g>
+    <!-- jQuery UI -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-            <rect id="arrowBtn" width="100" height="100" opacity="0" x="550" y="220" style="cursor:pointer" />
-        </svg>
-    </div>
+    <!-- 參考連結: https://www.jqueryscript.net/other/jQuery-UI-Rotatable-Elements.html -->
+    <script src="./jquery.ui.rotatable.js"></script>
 
     <script>
-        gsap.set('.main', { position: 'fixed', background: '#fff', width: '100%', maxWidth: '1200px', height: '100%', top: 0, left: '50%', x: '-50%' })
-        gsap.set('.scrollDist', { width: '100%', height: '200%' })
-        gsap.timeline({ scrollTrigger: { trigger: '.scrollDist', start: 'top top', end: 'bottom bottom', scrub: 1 } })
-            .fromTo('.sky', { y: 0 }, { y: -200 }, 0)
-            .fromTo('.cloud1', { y: 100 }, { y: -800 }, 0)
-            .fromTo('.cloud2', { y: -150 }, { y: -500 }, 0)
-            .fromTo('.cloud3', { y: -50 }, { y: -650 }, 0)
-            .fromTo('.mountBg', { y: -10 }, { y: -100 }, 0)
-            .fromTo('.mountMg', { y: -30 }, { y: -250 }, 0)
-            .fromTo('.mountFg', { y: -50 }, { y: -600 }, 0)
+        // function change() {
+        //     document.querySelector("body").url;
+        //     document.getElementById("body").url = "1584952222-bc09d41ee9ab4da2b9117d096d754f08.jpeg";
+        //     console.log(url.getAttribute("url"));
+        // }
 
-        $('#arrowBtn').on('mouseenter', (e) => { gsap.to('.arrow', { y: 10, duration: 0.8, ease: 'back.inOut(3)', overwrite: 'auto' }); })
-        $('#arrowBtn').on('mouseleave', (e) => { gsap.to('.arrow', { y: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' }); })
-        $('#arrowBtn').on('click', (e) => { gsap.to(window, { scrollTo: innerHeight, duration: 1.5, ease: 'power1.inOut' }); }) // scrollTo requires the ScrollTo plugin (not to be confused w/ ScrollTrigger)
-    </script>
+        //取得 JSON 字串
+        document.querySelector('button#btn_request').addEventListener('click', function (event) {
+            // function ChangeBg() {
+            //     document.background = "url('/Users/Sandra/Desktop/謝舒涵_JS作業/1584952222-bc09d41ee9ab4da2b9117d096d754f08.jpeg')"
+            // }
+
+            //取得 url
+            let url = document.querySelector("input#url").value;
+
+            //如果 url 為空，則不往下執行
+            if (url === '') {
+                alert(`請輸入LINE官方貼圖`);
+                return false;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', 'http://darreninfo.cc:5003/linesticker?url=' + url);
+            xhr.send();
+
+            xhr.onloadstart = function () {
+                console.log('連線開始')
+            }
+
+            xhr.onloadend = function () {
+                console.log('連線結束')
+            }
+
+            xhr.onload = function () {
+                console.log('連線中')
+                console.log(this.responseText);
+
+                //將傳回來的 JSON 轉成 物件
+                let obj = JSON.parse(this.responseText);
+
+                //取得 ul
+                let ul = document.querySelector('ul#myList');
+
+                //回傳成功，則顯示貼圖在網頁上
+                if (obj['success']) {
+                    //將 obj['results'] 裡面的結果，放置到
+                    for (let o of obj["results"]) {
+                        //新增 li 元素，放置 img、a 等元素
+                        let li = document.createElement("li");
+
+                        //新增 img 元素，並指定 src 的值為貼圖連結
+                        let img = document.createElement("img");
+                        img.src = o["staticUrl"];
+                        img.style = 'width: 150px;'
+                        li.style = 'jus'
+
+                        //新增 a 元素，並指定 href 為貼圖連結，同時指定 target="_blank"
+                        let a = document.createElement("a");
+                        a.addEventListener('click', function (event) {
+                            alert('恭喜交到新朋友！');
+                        });
+                        // a.href = o["staticUrl"];
+                        // a.target = "_blank";
+
+                        //新增放到 a 元素中的內文 innerText
+                        let textNode = document.createTextNode("選我");
+                        a.appendChild(textNode);
+
+                        //將 img 與 a 分別放到 li 當中
+                        li.appendChild(img);
+                        li.appendChild(a);
+
+                        //將 li 放到 ul 當中
+                        ul.appendChild(li);
+
+                    }
+                } else {
+                    alert('資料傳遞失敗');
+                }
+            }
+        });
+
+        window.alert = alert;
+        function alert(e) {
+            $("body").append('<div id="msg"><div id="msg_top">小提示<span class="msg_close">×</span></div><div id="msg_cont">' + e + '</div><div class="msg_close" id="msg_clear">真開心</div></div>');
+            $(".msg_close").click(function () {
+                $("#msg").remove();
+            });
+        }
+
+    </script>
 </body>
 
 </html>
